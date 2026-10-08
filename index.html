@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>こどもの居場所 ぱわふる | あなたの第2のおうち</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="岡崎市の高校生中心の任意団体「こどもの居場所 ぱわふる」公式ホームページ。ここにいていい。やってみたいを、やってみよう。学校でも家庭でもない、あなたの第2のおうち。">
+    <meta name="keywords" content="岡崎市 こどもの居場所, 岡崎 子ども 居場所, 六ツ美南部 こどもの居場所, 岡崎市 中高生 居場所, 岡崎市 相談 子ども">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pawafuru: {
+                            orange: '#FF8C42',
+                            yellow: '#FFD166',
+                            lightOrange: '#FFF4EC',
+                            lightYellow: '#FFFDF5',
+                            darkText: '#2D3748',
+                            accent: '#06D6A0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Nunito', 'Rounded Mplus 1c', 'Hiragino Sans', 'Meiryo', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            color: #2D3748;
+            background-color: #FFFDF5;
+        }
+        .hero-pattern {
+            background-color: #FFF4EC;
+            background-image: radial-gradient(#FFD166 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        /* Accessibility focus styles */
+        a:focus, button:focus {
+            outline: 3px solid #FF8C42;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-pawafuru-lightYellow text-pawafuru-darkText antialiased flex flex-col min-h-screen">
+
+    <!-- アクセシビリティ・スキップリンク -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-pawafuru-orange">
+        メインコンテンツへスキップ
+    </a>
+
+    <!-- 多言語切替＆緊急連絡バー -->
+    <header class="bg-white border-b border-orange-100 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <!-- ロゴ -->
+            <a href="#" onclick="router('home')" class="flex items-center space-x-2 group">
+                <div class="w-10 h-10 bg-pawafuru-orange rounded-full flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition">
+                    ぱ
+                </div>
+                <div>
+                    <span class="text-xs text-gray-500 block leading-tight">あなたの第2のおうち</span>
+                    <span class="text-lg font-bold text-pawafuru-darkText">こどもの居場所 ぱわふる</span>
+                </div>
+            </a>
+
+            <!-- デスクトップナビゲーション -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
+                <a href="#" onclick="router('home')" class="hover:text-pawafuru-orange transition">HOME</a>
+                <a href="#" onclick="router('about')" class="hover:text-pawafuru-orange transition">ぱわふるって？</a>
+                <a href="#" onclick="router('activities')" class="hover:text-pawafuru-orange transition">できること</a>
+                <a href="#" onclick="router('events')" class="hover:text-pawafuru-orange transition">イベント</a>
+                <a href="#" onclick="router('support')" class="hover:text-pawafuru-orange transition font-bold text-orange-600">相談する</a>
+                <a href="#" onclick="router('guide')" class="hover:text-pawafuru-orange transition">はじめての方へ</a>
+                <a href="#" onclick="router('community')" class="hover:text-pawafuru-orange transition">地域の情報</a>
+                <a href="#" onclick="router('join')" class="hover:text-pawafuru-orange transition">参加する</a>
+            </nav>
+
+            <!-- 多言語＆管理画面ボタン -->
+            <div class="flex items-center space-x-3">
+                <div class="relative">
+                    <select id="lang-select" onchange="changeLanguage(this.value)" class="text-xs bg-gray-100 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-pawafuru-orange">
+                        <option value="ja">🇯🇵 やさしい日本語</option>
+                        <option value="en">🇬🇧 English</option>
+                        <option value="pt">🇧🇷 Português</option>
+                        <option value="zh">🇨🇳 中文</option>
+                        <option value="tl">🇵🇭 Filipino</option>
+                        <option value="vi">🇻🇳 Tiếng Việt</option>
+                        <option value="ko">🇰🇷 한국어</option>
+                    </select>
+                </div>
+                <button onclick="router('admin')" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1.5 rounded-full font-medium transition" title="管理者ログイン">
+                    <i class="fa-solid fa-lock mr-1"></i>管理
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツコンテナ (ルーターで切り替え) -->
+    <main id="main-content" class="flex-grow">
+        <!-- 初期表示：ホーム画面 -->
+        <div id="view-container">
+            <!-- 動的コンテンツがここに展開されます -->
+        </div>
+    </main>
+
+    <!-- スマートフォン用下部固定ナビゲーション -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 shadow-lg grid grid-cols-5 text-center py-2 text-xs">
+        <a href="#" onclick="router('home')" class="flex flex-col items-center text-pawafuru-orange">
+            <i class="fa-solid fa-house text-lg"></i>
+            <span>ホーム</span>
+        </a>
+        <a href="#" onclick="router('guide')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
+            <i class="fa-solid fa-compass text-lg"></i>
+            <span>開催情報</span>
+        </a>
+        <a href="#" onclick="router('events')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
+            <i class="fa-solid fa-calendar-days text-lg"></i>
+            <span>イベント</span>
+        </a>
+        <a href="#" onclick="router('support')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
+            <i class="fa-solid fa-comments text-lg"></i>
+            <span>相談する</span>
+        </a>
+        <a href="#" onclick="router('about')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
+            <i class="fa-solid fa-circle-info text-lg"></i>
+            <span>ぱわふる？</span>
+        </a>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white pt-12 pb-20 lg:pb-12 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="font-bold text-lg mb-3 flex items-center">
+                    <span class="w-8 h-8 bg-pawafuru-orange rounded-full flex items-center justify-center text-white mr-2 text-sm">ぱ</span>
+                    こどもの居場所 ぱわふる
+                </h3>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    ここにいていい。やってみたいを、やってみよう。<br>
+                    学校でも家庭でもない、あなたの第2のおうち。
+                </p>
+                <div class="mt-4 flex space-x-3">
+                    <a href="#" target="_blank" class="w-9 h-9 bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 rounded-full flex items-center justify-center text-white text-lg hover:opacity-90 transition">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">メニュー</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li><a href="#" onclick="router('about')" class="hover:text-white">ぱわふるって？</a></li>
+                    <li><a href="#" onclick="router('activities')" class="hover:text-white">できること（4本柱）</a></li>
+                    <li><a href="#" onclick="router('events')" class="hover:text-white">イベント情報</a></li>
+                    <li><a href="#" onclick="router('guide')" class="hover:text-white">はじめての方へ・FAQ</a></li>
+                    <li><a href="#" onclick="router('community')" class="hover:text-white">地域の情報ポータル</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">相談・サポート</h4>
+                <ul class="space-y-2 text-xs text-gray-300">
+                    <li><a href="#" onclick="router('support')" class="hover:text-white">相談する（総合案内）</a></li>
+                    <li><a href="#" onclick="router('support')" class="hover:text-white">秘密と情報の取り扱い</a></li>
+                    <li><a href="#" onclick="router('support')" class="hover:text-white">緊急時の連絡先・公的機関</a></li>
+                    <li><a href="#" onclick="router('join')" class="hover:text-white">「やってみたい」投稿</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">運営・連携情報</h4>
+                <p class="text-xs text-gray-300 leading-relaxed mb-2">
+                    団体形態：高校生を中心とした任意団体<br>
+                    活動場所：六ツ美南部学区市民ホーム<br>
+                    開催日時：毎月第3日曜日 9:00〜12:00<br>
+                    利用料金：無料（予約不要）
+                </p>
+                <p class="text-xs text-gray-400">
+                    支援・連携：岡崎市役所 福祉部 ふくし相談課 / 民生委員・児童委員
+                </p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-gray-700 text-center text-xs text-gray-400">
+            <p>&copy; 2023-2026 こどもの居場所 ぱわふる All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScriptアプリケーションロジック -->
+    <script>
+        // CMSストレージ初期データ
+        const defaultState = {
+            notices: [
+                { id: 1, date: '2026.06.10', title: '次回の開催は6月21日（日）9:00からです！', category: '開催' },
+                { id: 2, date: '2026.05.28', title: '「やってみたい」投稿フォームから新しいアイデアが実現しました！', category: 'お知らせ' }
+            ],
+            events: [
+                { id: 1, title: '第3日曜日 定期オープンDAY', date: '毎月第3日曜日 9:00～12:00', place: '六ツ美南部学区市民ホーム', target: 'どなたでも（こども、若者、大人、シニア）', fee: '無料', res: '予約不要', desc: '読書、ゲーム、漫画、学習、おしゃべり、のんびり過ごすなど自由な時間です。' },
+                { id: 2, title: 'みんなでわいわいボードゲーム会', date: '2026.06.21 (日) 10:00～', place: '六ツ美南部学区市民ホーム', target: 'こどもから大人まで', fee: '無料', res: '予約不要', desc: '初心者でもすぐ楽しめるボードゲームをみんなで用意しています！' }
+            ],
+            wishes: [
+                { id: 1, text: 'みんなでカレーを食べるイベントがしたい！', status: '実現に向けて検討中！' },
+                { id: 2, text: 'ボードゲームの種類をもっと増やしてほしい！', status: '実現しました！' }
+            ]
+        };
+
+        // ローカルストレージからのデータ読み込み
+        let db = JSON.parse(localStorage.getItem('pawafuru_db')) || defaultState;
+        function saveDB() {
+            localStorage.setItem('pawafuru_db', JSON.stringify(db));
+        }
+
+        // 現在の言語
+        let currentLang = 'ja';
+        const translations = {
+            ja: {
+                heroSub: "あなたの第2のおうち",
+                heroMain: "ここにいていい。<br>やってみたいを、やってみよう。",
+                heroDesc: "学校でも家庭でもない、もうひとつの安心できる場所。今日はどんな風に過ごす？",
+                todayQuestion: "今日は、どんなことしたい？",
+                nextOpen: "次回のぱわふる",
+                openDate: "毎月第3日曜日 9:00～12:00",
+                openPlace: "六ツ美南部学区市民ホーム",
+                feeFree: "参加費無料・予約不要"
+            },
+            en: {
+                heroSub: "Your Second Home",
+                heroMain: "You belong here.<br>Let's try what you want to do.",
+                heroDesc: "A safe space outside of school and home. How would you like to spend your time today?",
+                todayQuestion: "What would you like to do today?",
+                nextOpen: "Next Gathering",
+                openDate: "Every 3rd Sunday 9:00 - 12:00",
+                openPlace: "Mutsumi-Nanbu Shimin Home",
+                feeFree: "Free Admission / No Reservation Required"
+            }
+        };
+
+        // ルーター機能
+        function router(page, param) {
+            window.scrollTo(0, 0);
+            const container = document.getElementById('view-container');
+            
+            switch(page) {
+                case 'home':
+                    container.innerHTML = renderHome();
+                    break;
+                case 'about':
+                    container.innerHTML = renderAbout();
+                    break;
+                case 'activities':
+                    container.innerHTML = renderActivities();
+                    break;
+                case 'events':
+                    container.innerHTML = renderEvents();
+                    break;
+                case 'support':
+                    container.innerHTML = renderSupport();
+                    break;
+                case 'guide':
+                    container.innerHTML = renderGuide();
+                    break;
+                case 'community':
+                    container.innerHTML = renderCommunity();
+                    break;
+                case 'join':
+                    container.innerHTML = renderJoin();
+                    break;
+                case 'admin':
+                    container.innerHTML = renderAdmin();
+                    break;
+                default:
+                    container.innerHTML = renderHome();
+            }
+        }
+
+        // 多言語切替
+        function changeLanguage(lang) {
+            currentLang = lang;
+            router('home');
+        }
+
+        // --- 各ページのレンダリング関数 ---
+
+        function renderHome() {
+            const t = translations[currentLang] || translations['ja'];
+            return `
+                <!-- ヒーローセクション -->
+                <section class="hero-pattern py-12 md:py-20 border-b border-orange-100">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <span class="inline-block bg-pawafuru-orange text-white text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full shadow-sm mb-4">
+                            ✨ ${t.heroSub}
+                        </span>
+                        <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-pawafuru-darkText leading-tight mb-6">
+                            ${t.heroMain}
+                        </h1>
+                        <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                            ${t.heroDesc}
+                        </p>
+                        
+                        <!-- 次回開催カード（最重要導線） -->
+                        <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-xl p-6 border-2 border-pawafuru-yellow text-left mb-10">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full animate-pulse">
+                                    <i class="fa-solid fa-bell mr-1"></i> ${t.nextOpen}
+                                </span>
+                                <span class="text-xs font-bold text-green-600 bg-green-50 px-2.5 py-1 rounded">
+                                    <i class="fa-solid fa-check mr-1"></i> ${t.feeFree}
+                                </span>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-pawafuru-darkText mb-2">
+                                6月21日（日）9:00 ～ 12:00
+                            </h3>
+                            <p class="text-xs sm:text-sm text-gray-600 mb-4 flex items-center">
+                                <i class="fa-solid fa-location-dot text-pawafuru-orange mr-2"></i> ${t.openPlace}
+                            </p>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="router('guide')" class="bg-pawafuru-orange hover:bg-orange-600 text-white font-bold py-2.5 px-4 rounded-xl text-center text-sm transition shadow">
+                                    はじめての方へ 🚀
+                                </button>
+                                <button onclick="router('support')" class="bg-white border-2 border-pawafuru-orange text-pawafuru-orange hover:bg-orange-50 font-bold py-2.5 px-4 rounded-xl text-center text-sm transition">
+                                    困ったときの相談 💬
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- お知らせバー -->
+                        <div class="max-w-3xl mx-auto bg-white rounded-xl p-4 shadow-sm border border-gray-200 text-left">
+                            <div class="flex items-center mb-2">
+                                <span class="text-xs font-bold bg-pawafuru-yellow text-gray-800 px-2 py-0.5 rounded mr-2">お知らせ</span>
+                                <span class="text-xs text-gray-500">${db.notices[0]?.date || ''}</span>
+                            </div>
+                            <p class="text-sm font-medium text-gray-800">${db.notices[0]?.title || ''}</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 今日は何したい？（4本柱＋相談） -->
+                <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-pawafuru-darkText">
+                            ${t.todayQuestion}
+                        </h2>
+                        <p class="text-sm text-gray-600 mt-2">
+                            決められたプログラムはありません。その日の自分に合った過ごし方を自分で選ぼう。
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- あそぶ -->
+                        <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-orange-400 group">
+                            <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-500 text-2xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-gamepad"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">① あそぶ</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                ゲーム、読書、漫画、ボードゲーム、おしゃべり。自分の好きなことでリラックス。
+                        </div>
+
+                        <!-- まなぶ -->
+                        <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-yellow-400 group">
+                            <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-yellow-600 text-2xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">② まなぶ</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                学校の宿題、自習、読書、調べもの。わからないところはスタッフと一緒に考えよう。
+                            </p>
+                        </div>
+
+                        <!-- つながる -->
+                        <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-green-400 group">
+                            <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 text-2xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-people-group"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">③ つながる</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                こども同士、若者、地域のみなさん、大人たちとの温かい交流。安心できる仲間が見つかる。
+                            </p>
+                        </div>
+
+                        <!-- つくる -->
+                        <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-blue-400 group">
+                            <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-2xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">④ つくる</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                工作、イベントの企画、やってみたいことへの挑戦。「こんなことしたい」をカタチに。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 相談バナー -->
+                    <div class="mt-12 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl p-8 text-white shadow-lg flex flex-col md:flex-row items-center justify-between">
+                        <div class="mb-6 md:mb-0">
+                            <span class="bg-white text-orange-600 text-xs font-bold px-3 py-1 rounded-full">
+                                💬 どんな小さなことでも
+                            </span>
+                            <h3 class="text-2xl font-bold mt-2">困ったとき、ちょっと話したいときに</h3>
+                            <p class="text-xs sm:text-sm text-orange-100 mt-1">
+                                「学校のこと」「友だちのこと」「将来のこと」「なんとなくつらい」…話を聴くスタッフが待っています。
+                            </p>
+                        </div>
+                        <button onclick="router('support')" class="bg-white text-orange-600 hover:bg-orange-50 font-bold px-6 py-3 rounded-full text-sm shadow transition shrink-0">
+                            相談のページを見る ➔
+                        </button>
+                    </div>
+                </section>
+
+                <!-- ストーリー・ぱわふるらしさ -->
+                <section class="bg-white py-16 border-t border-orange-100">
+                    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="bg-pawafuru-lightOrange rounded-3xl p-8 sm:p-12 border border-orange-200">
+                            <span class="text-xs font-bold text-orange-600 uppercase tracking-widest block mb-2">ぱわふるのエピソード</span>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-pawafuru-darkText mb-4">
+                                「今日、めっちゃ楽しいよ。毎日やってよ！」
+                            </h2>
+                            <p class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-6">
+                                以前、イベントで小学生の子がかけてくれたこの言葉が、私たちの原動力です。
+                                ぱわふるは、「ここにいていい」と感じられる場所。年齢や立場に関係なく、老若男女問わず誰もが少し元気になれる、そんな場所を目指しています。
+                            </p>
+                            <button onclick="router('about')" class="text-xs font-bold text-orange-600 hover:underline flex items-center">
+                                ぱわふるの理念とストーリーをもっと知る <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderAbout() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; ぱわふるって？
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">ぱわふるって？</h1>
+                    
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 space-y-8">
+                        <div>
+                            <h2 class="text-xl font-bold text-orange-600 mb-3">🌟 基本理念：「ここにいていい。やってみたいを、やってみよう。」</h2>
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                ぱわふるは、「居たい・行きたいと思える場所を、地域の中に。」という思いから、2023年8月に高校生を中心として始まった任意団体です。
+                                学校でも家庭でもない、もうひとつの安心できる場所＝「あなたの第2のおうち」を目指しています。
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">💡 ぱわふるが絶対に大切にすること</h3>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+                                <li>こども・若者の意見を受け止め、大切にすること</li>
+                                <li>秘密を大切に扱うこと</li>
+                                <li>ありのままのあなたを大切にすること</li>
+                                <li>自分の好きなように過ごしていい場所であること</li>
+                                <li>大人が一方的に「こどものため」を決めないこと</li>
+                                <li>こども・若者を「支援されるだけの存在」として扱わないこと</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">🛡️ スタッフのあり方</h3>
+                            <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                                スタッフは「指導者」ではありません。一緒に遊び、話を聴き、学習や挑戦を支える<strong>「伴走者」</strong>です。
+                                否定しない、急かしない、無理に決めさせない、約束を守る姿勢を大切にしています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderActivities() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; できること
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">できること（活動の4本柱）</h1>
+                    <p class="text-sm text-gray-600 mb-8">
+                        ぱわふるには「これをしなきゃいけない」という決まりはありません。その日の自分に合わせて自由に過ごせます。
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-orange-400">
+                            <h3 class="text-lg font-bold text-orange-600 mb-2">🎮 ① あそぶ</h3>
+                            <p class="text-sm text-gray-700">ゲーム、読書、漫画、ボードゲーム、おしゃべりなど。思いっきり楽しむ時間も、のんびりする時間も大切です。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-yellow-400">
+                            <h3 class="text-lg font-bold text-yellow-600 mb-2">📚 ② まなぶ</h3>
+                            <p class="text-sm text-gray-700">学校の宿題、自習、調べもの、読書など。わからないところはスタッフと一緒に考えます。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-green-400">
+                            <h3 class="text-lg font-bold text-green-600 mb-2">🤝 ③ つながる</h3>
+                            <p class="text-sm text-gray-700">こども同士、若者、地域住民、大人たちとの温かい交流。一人でも、誰かと一緒でも大丈夫。</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-blue-400">
+                            <h3 class="text-lg font-bold text-blue-600 mb-2">🛠️ ④ つくる</h3>
+                            <p class="text-sm text-gray-700">工作、イベントの企画、地域での挑戦。「こんなことやってみたい！」の気持ちをカタチにします。</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderEvents() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; イベント
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">イベント情報</h1>
+                    <p class="text-sm text-gray-600 mb-8">
+                        毎月の定期オープンのほか、楽しいイベントを開催しています。予約不要でお気軽にお越しください！
+                    </p>
+
+                    <div class="space-y-6">
+                        ${db.events.map(ev => `
+                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">${ev.res}</span>
+                                    <span class="text-xs font-bold text-green-600">${ev.fee}</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">${ev.title}</h3>
+                                <p class="text-xs text-gray-600 mb-1"><i class="fa-solid fa-calendar mr-2 text-pawafuru-orange"></i>${ev.date}</p>
+                                <p class="text-xs text-gray-600 mb-3"><i class="fa-solid fa-location-dot mr-2 text-pawafuru-orange"></i>${ev.place}</p>
+                                <p class="text-xs text-gray-700 bg-gray-50 p-3 rounded-xl">${ev.desc}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSupport() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; 相談する
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-4">困ったときの相談支援</h1>
+                    <div class="bg-orange-50 border-l-4 border-pawafuru-orange p-4 rounded-r-xl mb-8">
+                        <p class="text-sm font-bold text-orange-800">「ここにいていい。困ったときに話せる人がいる。」</p>
+                        <p class="text-xs text-gray-700 mt-1">こんなこと相談していいの？と思うような小さな困りごとも、いつでも話してください。</p>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">💬 どんなことが相談できる？</h3>
+                            <p class="text-xs text-gray-700 mb-3">学校、友人関係、家族関係、勉強、進路、将来、生活、不登校、子育て、なんとなくつらい、誰かに話を聞いてほしいなど、分野を限定しません。</p>
+                        </div>
+
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">⚠️ 相談対応者についてのたいせつなお知らせ</h3>
+                            <p class="text-xs text-gray-700 leading-relaxed">
+                                ぱわふるのスタッフは、医療・心理・福祉等の専門資格を有する専門職ではありません。
+                                私たちは「話を聴く」「困りごとを整理する」「一緒に考える」「必要な支援先につなぐ」ことを大切にしています。
+                                医療的な診断や専門的治療、行政の調査などは担いませんが、必要な場合は本人の意思を尊重した上で専門機関と連携します。
+                            </p>
+                        </div>
+
+                        <!-- 緊急時案内 -->
+                        <div class="bg-red-50 rounded-2xl p-6 border-2 border-red-300">
+                            <h3 class="text-lg font-bold text-red-700 mb-3"><i class="fa-solid fa-triangle-exclamation mr-2"></i>緊急時・夜間のご相談について</h3>
+                            <p class="text-xs text-gray-700 mb-4">生命・身体の安全に関わる緊急時は、ぱわふるの連絡先ではなく直ちに以下の専門機関へご連絡ください。</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
+                                <a href="tel:110" class="bg-white p-3 rounded-xl shadow-sm border border-red-200 block">
+                                    <span class="block text-lg font-bold text-red-600">110番</span>
+                                    <span class="text-xs text-gray-600">警察（事件・事故）</span>
+                                </a>
+                                <a href="tel:119" class="bg-white p-3 rounded-xl shadow-sm border border-red-200 block">
+                                    <span class="block text-lg font-bold text-red-600">119番</span>
+                                    <span class="text-xs text-gray-600">救急・消防</span>
+                                </a>
+                                <a href="tel:189" class="bg-white p-3 rounded-xl shadow-sm border border-red-200 block">
+                                    <span class="block text-lg font-bold text-red-600">189番</span>
+                                    <span class="text-xs text-gray-600">児童相談所虐待対応ダイヤル</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderGuide() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; はじめての方へ
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">はじめての方へ</h1>
+
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 space-y-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-orange-600 mb-2">📌 基本情報</h3>
+                            <ul class="text-sm text-gray-700 space-y-2">
+                                <li><strong>開催日時：</strong>毎月第3日曜日 9:00～12:00</li>
+                                <li><strong>場所：</strong>六ツ美南部学区市民ホーム</li>
+                                <li><strong>利用料：</strong>無料</li>
+                                <li><strong>予約・定員：</strong>予約不要 / 定員なし</li>
+                                <li><strong>持ち物：</strong>飲み物、その他自分が持っていきたいもの</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">❓ よくある質問（FAQ）</h3>
+                            <div class="space-y-4 text-sm text-gray-700">
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="font-bold text-orange-600 mb-1">Q. 誰でも行けますか？</p>
+                                    <p class="text-xs">A. はい！こども、若者、大人、シニア、保護者など、すべての年代の方にご利用いただけます。</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="font-bold text-orange-600 mb-1">Q. 一人でも大丈夫ですか？</p>
+                                    <p class="text-xs">A. もちろんです。一人でも、友だちや家族と一緒でも大歓迎です。</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-xl">
+                                    <p class="font-bold text-orange-600 mb-1">Q. 途中参加や途中退出はできますか？</p>
+                                    <p class="text-xs">A. はい、自分のペースで自由に来て帰ることができます。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderCommunity() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; 地域の情報
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">地域の情報ポータル</h1>
+                    <p class="text-sm text-gray-600 mb-8">
+                        岡崎市内のこどもの居場所や相談先、関連する支援情報をまとめた入口です。（将来的にさらに充実予定）
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                            <h3 class="text-base font-bold text-pawafuru-darkText mb-2">🏛️ 岡崎市の関係機関</h3>
+                            <ul class="text-xs text-gray-600 space-y-2">
+                                <li>・岡崎市役所 福祉部 ふくし相談課</li>
+                                <li>・岡崎市 こども部 こども家庭センター</li>
+                                <li>・岡崎市 こども若者総合相談センター「わかサポ」</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
+                            <h3 class="text-base font-bold text-pawafuru-darkText mb-2">🤝 地域サポート</h3>
+                            <ul class="text-xs text-gray-600 space-y-2">
+                                <li>・民生委員・児童委員の皆様</li>
+                                <li>・愛知県 西三河福祉相談センター</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderJoin() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; 参加する
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">「やってみたい」投稿・参加する</h1>
+                    
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-8">
+                        <h3 class="text-lg font-bold text-orange-600 mb-2">✨ こんなこと、やってみたい！</h3>
+                        <p class="text-xs text-gray-600 mb-4">イベント、遊び、こんな場所がほしいなど、あなたのアイデアを教えてください！</p>
+                        
+                        <div class="space-y-4">
+                            <textarea id="wish-input" rows="4" placeholder="例：みんなでピザを作るイベントがしたい！" class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-orange-400 focus:outline-none"></textarea>
+                            <button onclick="submitWish()" class="bg-pawafuru-orange hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition">
+                                アイデアを投稿する 🚀
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- みんなのアイデア実現状況 -->
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                        <h3 class="text-lg font-bold text-pawafuru-darkText mb-4">📋 投稿されたアイデアと実現状況</h3>
+                        <div class="space-y-3" id="wish-list">
+                            ${db.wishes.map(w => `
+                                <div class="bg-gray-50 p-4 rounded-xl flex items-center justify-between">
+                                    <span class="text-xs text-gray-800">${w.text}</span>
+                                    <span class="text-xs font-bold text-orange-600 bg-orange-100 px-2.5 py-1 rounded">${w.status}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function submitWish() {
+            const input = document.getElementById('wish-input');
+            if(!input.value.trim()) return alert('内容を入力してください。');
+            db.wishes.unshift({ id: Date.now(), text: input.value, status: 'みんなで考え中！' });
+            saveDB();
+            alert('ご意見ありがとうございます！大切に受け止めます。');
+            router('join');
+        }
+
+        // 管理画面（簡易CMS）
+        function renderAdmin() {
+            return `
+                <div class="max-w-4xl mx-auto px-4 py-12">
+                    <nav class="text-xs text-gray-500 mb-6">
+                        <a href="#" onclick="router('home')">HOME</a> &gt; 管理画面
+                    </nav>
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6"><i class="fa-solid fa-lock mr-2"></i>管理者ダッシュボード</h1>
+                    
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 space-y-6">
+                        <p class="text-xs text-gray-600">サイト内の情報を簡単に更新できます。（デモモード：変更はブラウザに保存されます）</p>
+                        
+                        <div>
+                            <h3 class="text-base font-bold text-pawafuru-darkText mb-2">📢 お知らせの追加</h3>
+                            <input type="text" id="admin-notice" placeholder="新しいお知らせタイトル" class="w-full p-3 border border-gray-300 rounded-xl text-sm mb-3">
+                            <button onclick="addNotice()" class="bg-pawafuru-orange text-white font-bold px-5 py-2 rounded-xl text-xs">お知らせを追加</button>
+                        </div>
+
+                        <div class="pt-6 border-t border-gray-200">
+                            <button onclick="router('home')" class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-xl text-xs">ホームページに戻る</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function addNotice() {
+            const val = document.getElementById('admin-notice').value;
+            if(!val) return;
+            db.notices.unshift({ id: Date.now(), date: '2026.06.12', title: val, category: 'お知らせ' });
+            saveDB();
+            alert('お知らせを追加しました！');
+            router('home');
+        }
+
+        // 初期ロード
+        router('home');
+    </script>
+</body>
+</html>
