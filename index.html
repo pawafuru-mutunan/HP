@@ -55,6 +55,18 @@
 </head>
 <body class="bg-pawafuru-lightYellow text-pawafuru-darkText antialiased flex flex-col min-h-screen">
 
+    <!-- カスタムメッセージモーダル -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl text-center">
+            <div id="modal-icon" class="text-4xl mb-3 text-pawafuru-orange">💬</div>
+            <h3 id="modal-title" class="text-lg font-bold text-pawafuru-darkText mb-2">お知らせ</h3>
+            <p id="modal-message" class="text-xs text-gray-600 mb-6 leading-relaxed"></p>
+            <button onclick="closeModal()" class="bg-pawafuru-orange hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition w-full">
+                閉じる
+            </button>
+        </div>
+    </div>
+
     <!-- アクセシビリティ・スキップリンク -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-white focus:text-pawafuru-orange">
         メインコンテンツへスキップ
@@ -69,21 +81,21 @@
                     ぱ
                 </div>
                 <div>
-                    <span class="text-xs text-gray-500 block leading-tight">あなたの第2のおうち</span>
-                    <span class="text-lg font-bold text-pawafuru-darkText">こどもの居場所 ぱわふる</span>
+                    <span id="header-sub" class="text-xs text-gray-500 block leading-tight">あなたの第2のおうち</span>
+                    <span id="header-main" class="text-lg font-bold text-pawafuru-darkText">こどもの居場所 ぱわふる</span>
                 </div>
             </a>
 
             <!-- デスクトップナビゲーション -->
             <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium">
-                <a href="#" onclick="router('home')" class="hover:text-pawafuru-orange transition">HOME</a>
-                <a href="#" onclick="router('about')" class="hover:text-pawafuru-orange transition">ぱわふるって？</a>
-                <a href="#" onclick="router('activities')" class="hover:text-pawafuru-orange transition">できること</a>
-                <a href="#" onclick="router('events')" class="hover:text-pawafuru-orange transition">イベント</a>
-                <a href="#" onclick="router('support')" class="hover:text-pawafuru-orange transition font-bold text-orange-600">相談する</a>
-                <a href="#" onclick="router('guide')" class="hover:text-pawafuru-orange transition">はじめての方へ</a>
-                <a href="#" onclick="router('community')" class="hover:text-pawafuru-orange transition">地域の情報</a>
-                <a href="#" onclick="router('join')" class="hover:text-pawafuru-orange transition">参加する</a>
+                <a href="#" onclick="router('home')" class="nav-home hover:text-pawafuru-orange transition">HOME</a>
+                <a href="#" onclick="router('about')" class="nav-about hover:text-pawafuru-orange transition">ぱわふるって？</a>
+                <a href="#" onclick="router('activities')" class="nav-activities hover:text-pawafuru-orange transition">できること</a>
+                <a href="#" onclick="router('events')" class="nav-events hover:text-pawafuru-orange transition">イベント</a>
+                <a href="#" onclick="router('support')" class="nav-support hover:text-pawafuru-orange transition font-bold text-orange-600">相談する</a>
+                <a href="#" onclick="router('guide')" class="nav-guide hover:text-pawafuru-orange transition">はじめての方へ</a>
+                <a href="#" onclick="router('community')" class="nav-community hover:text-pawafuru-orange transition">地域の情報</a>
+                <a href="#" onclick="router('join')" class="nav-join hover:text-pawafuru-orange transition">参加する</a>
             </nav>
 
             <!-- 多言語＆管理画面ボタン -->
@@ -100,7 +112,7 @@
                     </select>
                 </div>
                 <button onclick="router('admin')" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1.5 rounded-full font-medium transition" title="管理者ログイン">
-                    <i class="fa-solid fa-lock mr-1"></i>管理
+                    <i class="fa-solid fa-lock mr-1"></i><span class="nav-admin-btn">管理</span>
                 </button>
             </div>
         </div>
@@ -118,23 +130,23 @@
     <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 shadow-lg grid grid-cols-5 text-center py-2 text-xs">
         <a href="#" onclick="router('home')" class="flex flex-col items-center text-pawafuru-orange">
             <i class="fa-solid fa-house text-lg"></i>
-            <span>ホーム</span>
+            <span class="nav-mob-home">ホーム</span>
         </a>
         <a href="#" onclick="router('guide')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
             <i class="fa-solid fa-compass text-lg"></i>
-            <span>開催情報</span>
+            <span class="nav-mob-guide">開催情報</span>
         </a>
         <a href="#" onclick="router('events')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
             <i class="fa-solid fa-calendar-days text-lg"></i>
-            <span>イベント</span>
+            <span class="nav-mob-events">イベント</span>
         </a>
         <a href="#" onclick="router('support')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
             <i class="fa-solid fa-comments text-lg"></i>
-            <span>相談する</span>
+            <span class="nav-mob-support">相談する</span>
         </a>
         <a href="#" onclick="router('about')" class="flex flex-col items-center text-gray-600 hover:text-pawafuru-orange">
             <i class="fa-solid fa-circle-info text-lg"></i>
-            <span>ぱわふる？</span>
+            <span class="nav-mob-about">ぱわふる？</span>
         </a>
     </div>
 
@@ -144,9 +156,9 @@
             <div>
                 <h3 class="font-bold text-lg mb-3 flex items-center">
                     <span class="w-8 h-8 bg-pawafuru-orange rounded-full flex items-center justify-center text-white mr-2 text-sm">ぱ</span>
-                    こどもの居場所 ぱわふる
+                    <span class="footer-org-name">こどもの居場所 ぱわふる</span>
                 </h3>
-                <p class="text-xs text-gray-300 leading-relaxed">
+                <p id="footer-desc" class="text-xs text-gray-300 leading-relaxed">
                     ここにいていい。やってみたいを、やってみよう。<br>
                     学校でも家庭でもない、あなたの第2のおうち。
                 </p>
@@ -157,33 +169,33 @@
                 </div>
             </div>
             <div>
-                <h4 class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">メニュー</h4>
+                <h4 id="footer-menu-title" class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">メニュー</h4>
                 <ul class="space-y-2 text-xs text-gray-300">
-                    <li><a href="#" onclick="router('about')" class="hover:text-white">ぱわふるって？</a></li>
-                    <li><a href="#" onclick="router('activities')" class="hover:text-white">できること（4本柱）</a></li>
-                    <li><a href="#" onclick="router('events')" class="hover:text-white">イベント情報</a></li>
-                    <li><a href="#" onclick="router('guide')" class="hover:text-white">はじめての方へ・FAQ</a></li>
-                    <li><a href="#" onclick="router('community')" class="hover:text-white">地域の情報ポータル</a></li>
+                    <li><a href="#" onclick="router('about')" class="nav-about">ぱわふるって？</a></li>
+                    <li><a href="#" onclick="router('activities')" class="nav-activities">できること（4本柱）</a></li>
+                    <li><a href="#" onclick="router('events')" class="nav-events">イベント情報</a></li>
+                    <li><a href="#" onclick="router('guide')" class="nav-guide">はじめての方へ・FAQ</a></li>
+                    <li><a href="#" onclick="router('community')" class="nav-community">地域の情報ポータル</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">相談・サポート</h4>
+                <h4 id="footer-support-title" class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">相談・サポート</h4>
                 <ul class="space-y-2 text-xs text-gray-300">
-                    <li><a href="#" onclick="router('support')" class="hover:text-white">相談する（総合案内）</a></li>
-                    <li><a href="#" onclick="router('support')" class="hover:text-white">秘密と情報の取り扱い</a></li>
-                    <li><a href="#" onclick="router('support')" class="hover:text-white">緊急時の連絡先・公的機関</a></li>
-                    <li><a href="#" onclick="router('join')" class="hover:text-white">「やってみたい」投稿</a></li>
+                    <li><a href="#" onclick="router('support')" class="nav-support">相談する（総合案内）</a></li>
+                    <li><a href="#" onclick="router('support')" class="footer-privacy">秘密と情報の取り扱い</a></li>
+                    <li><a href="#" onclick="router('support')" class="footer-emergency">緊急時の連絡先・公的機関</a></li>
+                    <li><a href="#" onclick="router('join')" class="nav-join">「やってみたい」投稿</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">運営・連携情報</h4>
-                <p class="text-xs text-gray-300 leading-relaxed mb-2">
+                <h4 id="footer-info-title" class="font-bold text-sm mb-3 text-pawafuru-yellow border-b border-gray-700 pb-1">運営・連携情報</h4>
+                <p id="footer-info-text" class="text-xs text-gray-300 leading-relaxed mb-2">
                     団体形態：高校生を中心とした任意団体<br>
-                    活動場所：六ツ美南部学区市民ホーム<br>
+                    活動場所：六ツ美南部学学区市民ホーム<br>
                     開催日時：毎月第3日曜日 9:00〜12:00<br>
                     利用料金：無料（予約不要）
                 </p>
-                <p class="text-xs text-gray-400">
+                <p id="footer-partner" class="text-xs text-gray-400">
                     支援・連携：岡崎市役所 福祉部 ふくし相談課 / 民生委員・児童委員
                 </p>
             </div>
@@ -195,15 +207,66 @@
 
     <!-- JavaScriptアプリケーションロジック -->
     <script>
+        // カスタムモーダル制御
+        function showModal(title, message, icon = '💬') {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            document.getElementById('modal-icon').innerText = icon;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+
+        // --- 自動で第3日曜日を計算する関数 (初回2026年10月18日等に対応) ---
+        function getThirdSunday(year, month) {
+            // month: 0-indexed (0 = 1月, 9 = 10月...)
+            let firstDay = new Date(year, month, 1);
+            let dayOfWeek = firstDay.getDay(); // 0(日)〜6(土)
+            let daysToFirstSunday = (7 - dayOfWeek) % 7;
+            let thirdSundayDate = 1 + daysToFirstSunday + 14;
+            return new Date(year, month, thirdSundayDate, 9, 0, 0);
+        }
+
+        function getNextThirdSunday() {
+            let now = new Date();
+            // 今月の第3日曜日を計算
+            let target = getThirdSunday(now.getFullYear(), now.getMonth());
+            // すでに今月の第3日曜日の12:00を過ぎている場合は来月の第3日曜日
+            target.setHours(12, 0, 0, 0);
+            if (now > target) {
+                let nextMonth = now.getMonth() + 1;
+                let nextYear = now.getFullYear();
+                if (nextMonth > 11) {
+                    nextMonth = 0;
+                    nextYear++;
+                }
+                target = getThirdSunday(nextYear, nextMonth);
+            }
+            return target;
+        }
+
+        function formatDateJa(date) {
+            const m = date.getMonth() + 1;
+            const d = date.getDate();
+            const days = ['日', '月', '火', '水', '木', '金', '土'];
+            const day = days[date.getDay()];
+            return `${m}月${d}日（${day}）9:00 ～ 12:00`;
+        }
+
+        function formatDateEn(date) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric', weekday: 'short' };
+            return date.toLocaleDateString('en-US', options) + ' 9:00 - 12:00';
+        }
+
         // CMSストレージ初期データ
         const defaultState = {
             notices: [
-                { id: 1, date: '2026.06.10', title: '次回の開催は6月21日（日）9:00からです！', category: '開催' },
-                { id: 2, date: '2026.05.28', title: '「やってみたい」投稿フォームから新しいアイデアが実現しました！', category: 'お知らせ' }
+                { id: 1, date: '2026.10.01', theme: '開催', title: '次回の開催は第3日曜日です！ぜひお越しください。', image: '' },
+                { id: 2, date: '2026.09.15', theme: 'お知らせ', title: '「やってみたい」投稿フォームから新しいアイデアが実現しました！', image: '' }
             ],
             events: [
-                { id: 1, title: '第3日曜日 定期オープンDAY', date: '毎月第3日曜日 9:00～12:00', place: '六ツ美南部学区市民ホーム', target: 'どなたでも（こども、若者、大人、シニア）', fee: '無料', res: '予約不要', desc: '読書、ゲーム、漫画、学習、おしゃべり、のんびり過ごすなど自由な時間です。' },
-                { id: 2, title: 'みんなでわいわいボードゲーム会', date: '2026.06.21 (日) 10:00～', place: '六ツ美南部学区市民ホーム', target: 'こどもから大人まで', fee: '無料', res: '予約不要', desc: '初心者でもすぐ楽しめるボードゲームをみんなで用意しています！' }
+                { id: 1, title: '第3日曜日 定期オープンDAY', date: '毎月第3日曜日 9:00～12:00', place: '六ツ美南部学区市民ホーム', target: 'どなたでも（こども、若者、大人、シニア）', fee: '無料', res: '予約不要', desc: '読書、ゲーム、漫画、学習、おしゃべり、のんびり過ごすなど自由な時間です。' }
             ],
             wishes: [
                 { id: 1, text: 'みんなでカレーを食べるイベントがしたい！', status: '実現に向けて検討中！' },
@@ -211,13 +274,12 @@
             ]
         };
 
-        // ローカルストレージからのデータ読み込み
         let db = JSON.parse(localStorage.getItem('pawafuru_db')) || defaultState;
         function saveDB() {
             localStorage.setItem('pawafuru_db', JSON.stringify(db));
         }
 
-        // 現在の言語
+        // --- 7言語対応辞書 ---
         let currentLang = 'ja';
         const translations = {
             ja: {
@@ -225,22 +287,153 @@
                 heroMain: "ここにいていい。<br>やってみたいを、やってみよう。",
                 heroDesc: "学校でも家庭でもない、もうひとつの安心できる場所。今日はどんな風に過ごす？",
                 todayQuestion: "今日は、どんなことしたい？",
-                nextOpen: "次回のぱわふる",
-                openDate: "毎月第3日曜日 9:00～12:00",
+                nextOpen: "次回のぱわふる開催予定",
                 openPlace: "六ツ美南部学区市民ホーム",
-                feeFree: "参加費無料・予約不要"
+                feeFree: "参加費無料・予約不要",
+                btnGuide: "はじめての方へ 🚀",
+                btnSupport: "困ったときの相談 💬",
+                navHome: "HOME", navAbout: "ぱわふるって？", navActivities: "できること", navEvents: "イベント", navSupport: "相談する", navGuide: "はじめての方へ", navCommunity: "地域の情報", navJoin: "参加する",
+                adminTitle: "管理", mobHome: "ホーム", mobGuide: "開催情報", mobEvents: "イベント", mobSupport: "相談する", mobAbout: "ぱわふる？",
+                footerOrg: "こどもの居場所 ぱわふる", footerDescText: "ここにいていい。やってみたいを、やってみよう。<br>学校でも家庭でもない、あなたの第2のおうち。",
+                footerMenu: "メニュー", footerSupportTitle: "相談・サポート", footerInfoTitle: "運営・連携情報",
+                footerInfoContent: "団体形態：高校生を中心とした任意団体<br>活動場所：六ツ美南部学区市民ホーム<br>開催日時：毎月第3日曜日 9:00〜12:00<br>利用料金：無料（予約不要）",
+                footerPartner: "支援・連携：岡崎市役所 福祉部 ふくし相談課 / 民生委員・児童委員"
             },
             en: {
                 heroSub: "Your Second Home",
                 heroMain: "You belong here.<br>Let's try what you want to do.",
                 heroDesc: "A safe space outside of school and home. How would you like to spend your time today?",
                 todayQuestion: "What would you like to do today?",
-                nextOpen: "Next Gathering",
-                openDate: "Every 3rd Sunday 9:00 - 12:00",
+                nextOpen: "Next Gathering Schedule",
                 openPlace: "Mutsumi-Nanbu Shimin Home",
-                feeFree: "Free Admission / No Reservation Required"
+                feeFree: "Free Admission / No Reservation Required",
+                btnGuide: "First-Time Guide 🚀",
+                btnSupport: "Need Help & Support 💬",
+                navHome: "HOME", navAbout: "About Us", navActivities: "Activities", navEvents: "Events", navSupport: "Support", navGuide: "First-Time", navCommunity: "Community", navJoin: "Join Us",
+                adminTitle: "Admin", mobHome: "Home", mobGuide: "Schedule", mobEvents: "Events", mobSupport: "Support", mobAbout: "About",
+                footerOrg: "Kids' Space Pawafuru", footerDescText: "You belong here. Let's try what you want to do.<br>Your second home, outside of school and family.",
+                footerMenu: "Menu", footerSupportTitle: "Support & Help", footerInfoTitle: "Organization Info",
+                footerInfoContent: "Organization: Student-led volunteer group<br>Location: Mutsumi-Nanbu Shimin Home<br>Schedule: Every 3rd Sunday 9:00 - 12:00<br>Fee: Free (No reservation needed)",
+                footerPartner: "Supported by: Okazaki City Welfare Dept. / Welfare Commissioners"
+            },
+            pt: {
+                heroSub: "Seu Segundo Lar",
+                heroMain: "Você pertence a este lugar.<br>Vamos tentar o que você quer fazer.",
+                heroDesc: "Um espaço seguro fora da escola e de casa. Como você gostaria de passar seu dia hoje?",
+                todayQuestion: "O que você gostaria de fazer hoje?",
+                nextOpen: "Próximo Encontro",
+                openPlace: "Mutsumi-Nanbu Shimin Home",
+                feeFree: "Entrada Gratuita / Sem Reserva",
+                btnGuide: "Guia para Iniciantes 🚀",
+                btnSupport: "Precisa de Ajuda? 💬",
+                navHome: "INÍCIO", navAbout: "Sobre", navActivities: "Atividades", navEvents: "Eventos", navSupport: "Suporte", navGuide: "Guia", navCommunity: "Comunidade", navJoin: "Participe",
+                adminTitle: "Admin", mobHome: "Início", mobGuide: "Agenda", mobEvents: "Eventos", mobSupport: "Suporte", mobAbout: "Sobre",
+                footerOrg: "Espaço Infantil Pawafuru", footerDescText: "Você pertence aqui. Vamos tentar o que quiser.<br>Seu segundo lar.",
+                footerMenu: "Menu", footerSupportTitle: "Suporte", footerInfoTitle: "Informações",
+                footerInfoContent: "Formato: Grupo voluntário liderado por jovens<br>Local: Mutsumi-Nanbu Shimin Home<br>Horário: Todo 3º domingo das 9h às 12h<br>Taxa: Gratuito",
+                footerPartner: "Apoio: Cidade de Okazaki / Comissários de Bem-Estar"
+            },
+            zh: {
+                heroSub: "你的第二个家",
+                heroMain: "你属于这里。<br>让我们一起尝试你想做的事吧。",
+                heroDesc: "学校和家庭之外的另一个安心港湾。今天要怎么度过呢？",
+                todayQuestion: "今天想做点什么呢？",
+                nextOpen: "下次活动时间",
+                openPlace: "六美南部市民会馆",
+                feeFree: "免费参加 / 无需预约",
+                btnGuide: "初次访问指南 🚀",
+                btnSupport: "遇到烦恼想聊聊 💬",
+                navHome: "首页", navAbout: "关于我们", navActivities: "活动内容", navEvents: "活动日历", navSupport: "咨询求助", navGuide: "新手指南", navCommunity: "社区信息", navJoin: "参与共创",
+                adminTitle: "管理", mobHome: "首页", mobGuide: "日程", mobEvents: "活动", mobSupport: "咨询", mobAbout: "关于",
+                footerOrg: "儿童活动空间 Pawafuru", footerDescText: "你属于这里。勇敢去尝试你想做的事。<br>学校与家庭之外的第二个家。",
+                footerMenu: "菜单", footerSupportTitle: "咨询与支持", footerInfoTitle: "运营与合作",
+                footerInfoContent: "团体形态：以高中生为主的志愿团体<br>活动地点：六美南部学区市民会馆<br>活动时间：每月第3个星期日 9:00〜12:00<br>费用：免费（无需预约）",
+                footerPartner: "支援合作：冈崎市役所 福祉部 / 民生委员"
+            },
+            tl: {
+                heroSub: "Ang Iyong Ikalawang Tahanan",
+                heroMain: "May puwang ka rito.<br>Subukan natin ang gusto mong gawin.",
+                heroDesc: "Isang ligtas na espasyo bukod sa paaralan at tahanan. Paano mo gustong gugulin ang iyong araw?",
+                todayQuestion: "Ano ang gusto mong gawin ngayon?",
+                nextOpen: "Susunod na Pagtitipon",
+                openPlace: "Mutsumi-Nanbu Shimin Home",
+                feeFree: "Libre / Walang Reservation",
+                btnGuide: "Gabay para sa Unang Bisita 🚀",
+                btnSupport: "Humingi ng Tulong 💬",
+                navHome: "HOME", navAbout: "Tungkol sa Amin", navActivities: "Gawain", navEvents: "Kaganapan", navSupport: "Suporta", navGuide: "Gabay", navCommunity: "Komunidad", navJoin: "Sumali",
+                adminTitle: "Admin", mobHome: "Home", mobGuide: "Gabay", mobEvents: "Event", mobSupport: "Tulong", mobAbout: "Tungkol",
+                footerOrg: "Espasyo ng mga Bata Pawafuru", footerDescText: "May lugar ka rito. Subukan ang iyong gustong gawin.<br>Ang iyong ikalawang tahanan.",
+                footerMenu: "Menu", footerSupportTitle: "Suporta", footerInfoTitle: "Impormasyon",
+                footerInfoContent: "Lugar: Mutsumi-Nanbu Shimin Home<br>Oras: Tuwing ika-3 Linggo ng buwan 9:00 - 12:00<br>Bayad: Libre",
+                footerPartner: "Suporta: Okazaki City Welfare Dept."
+            },
+            vi: {
+                heroSub: "Ngôi Nhà Thử Hai Của Bạn",
+                heroMain: "Bạn thuộc về nơi này.<br>Hãy thử làm điều bạn muốn.",
+                heroDesc: "Một không gian an toàn ngoài trường học và gia đình. Hôm nay bạn muốn trải qua thế nào?",
+                todayQuestion: "Hôm nay bạn muốn làm gì?",
+                nextOpen: "Lịch Hoạt Động Tiếp Theo",
+                openPlace: "Nhà Văn Hóa Mutsumi-Nanbu",
+                feeFree: "Miễn phí / Không cần đặt chỗ",
+                btnGuide: "Hướng dẫn cho người mới 🚀",
+                btnSupport: "Tư vấn & Hỗ trợ 💬",
+                navHome: "TRANG CHỦ", navAbout: "Giới Thiệu", navActivities: "Hoạt Động", navEvents: "Sự Kiện", navSupport: "Hỗ Trợ", navGuide: "Hướng Dẫn", navCommunity: "Cộng Đồng", navJoin: "Tham Gia",
+                adminTitle: "Quản Trị", mobHome: "Trang Chủ", mobGuide: "Lịch", mobEvents: "Sự Kiện", mobSupport: "Hỗ Trợ", mobAbout: "Giới Thiệu",
+                footerOrg: "Không gian trẻ em Pawafuru", footerDescText: "Bạn được chào đón ở đây.<br>Ngôi nhà thứ hai của bạn.",
+                footerMenu: "Menu", footerSupportTitle: "Hỗ Trợ", footerInfoTitle: "Thông Tin",
+                footerInfoContent: "Địa điểm: Nhà văn hóa Mutsumi-Nanbu<br>Thời gian: Chủ Nhật thứ 3 hàng tháng 9:00 - 12:00<br>Phí: Miễn phí",
+                footerPartner: "Hỗ trợ: Thành phố Okazaki"
+            },
+            ko: {
+                heroSub: "당신의 제2의 집",
+                heroMain: "여기에 있어도 괜찮아.<br>해보고 싶은 걸 해보자.",
+                heroDesc: "학교나 가정과는 다른, 또 하나의 안심할 수 있는 공간. 오늘은 어떤 시간을 보낼까?",
+                todayQuestion: "오늘은 어떤 걸 하고 싶어?",
+                nextOpen: "다음 파와후루 개최 일정",
+                openPlace: "무쓰미난부 학구 시민 홈",
+                feeFree: "참가비 무료·예약 불필요",
+                btnGuide: "처음 방문하시는 분께 🚀",
+                btnSupport: "고민 상담하기 💬",
+                navHome: "HOME", navAbout: "파와후루란?", navActivities: "할 수 있는 것", navEvents: "이벤트", navSupport: "상담하기", navGuide: "처음으로", navCommunity: "지역 정보", navJoin: "참여하기",
+                adminTitle: "관리", mobHome: "홈", mobGuide: "일정", mobEvents: "이벤트", mobSupport: "상담", mobAbout: "소개",
+                footerOrg: "어린이의 공간 파와후루", footerDescText: "여기에 있어도 괜찮아. 해보고 싶은 걸 해보자.<br>학교도 가정도 아닌, 당신의 제2의 집.",
+                footerMenu: "메뉴", footerSupportTitle: "상담 및 서포트", footerInfoTitle: "운영 및 연계 정보",
+                footerInfoContent: "단체 형태: 고등학생 중심의 임의 단체<br>활동 장소: 무쓰미난부 학구 시민 홈<br>개최 일시: 매월 제3 일요일 9:00~12:00<br>이용 요금: 무료 (예약 불필요)",
+                footerPartner: "지원·연계: 오카자키시청 복지부 / 민생위원·아동위원"
             }
         };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            // 静的UIのテキストを言語に応じて即時反映
+            const t = translations[currentLang] || translations['ja'];
+            document.getElementById('header-sub').innerText = t.heroSub;
+            document.getElementById('footer-org-name').innerText = t.footerOrg;
+            document.getElementById('footer-desc').innerHTML = t.footerDescText;
+            document.getElementById('footer-menu-title').innerText = t.footerMenu;
+            document.getElementById('footer-support-title').innerText = t.footerSupportTitle;
+            document.getElementById('footer-info-title').innerText = t.footerInfoTitle;
+            document.getElementById('footer-info-text').innerHTML = t.footerInfoContent;
+            document.getElementById('footer-partner').innerText = t.footerPartner;
+
+            // ナビゲーション等のクラス名要素を一括置換
+            document.querySelectorAll('.nav-home').forEach(el => el.innerText = t.navHome);
+            document.querySelectorAll('.nav-about').forEach(el => el.innerText = t.navAbout);
+            document.querySelectorAll('.nav-activities').forEach(el => el.innerText = t.navActivities);
+            document.querySelectorAll('.nav-events').forEach(el => el.innerText = t.navEvents);
+            document.querySelectorAll('.nav-support').forEach(el => el.innerText = t.navSupport);
+            document.querySelectorAll('.nav-guide').forEach(el => el.innerText = t.navGuide);
+            document.querySelectorAll('.nav-community').forEach(el => el.innerText = t.navCommunity);
+            document.querySelectorAll('.nav-join').forEach(el => el.innerText = t.navJoin);
+            document.querySelectorAll('.nav-admin-btn').forEach(el => el.innerText = t.adminTitle);
+            document.querySelectorAll('.nav-mob-home').forEach(el => el.innerText = t.mobHome);
+            document.querySelectorAll('.nav-mob-guide').forEach(el => el.innerText = t.mobGuide);
+            document.querySelectorAll('.nav-mob-events').forEach(el => el.innerText = t.mobEvents);
+            document.querySelectorAll('.nav-mob-support').forEach(el => el.innerText = t.mobSupport);
+            document.querySelectorAll('.nav-mob-about').forEach(el => el.innerText = t.mobAbout);
+
+            router('home');
+        }
 
         // ルーター機能
         function router(page, param) {
@@ -273,23 +466,20 @@
                     container.innerHTML = renderJoin();
                     break;
                 case 'admin':
-                    container.innerHTML = renderAdmin();
+                    renderAdminLoginCheck(container);
                     break;
                 default:
                     container.innerHTML = renderHome();
             }
         }
 
-        // 多言語切替
-        function changeLanguage(lang) {
-            currentLang = lang;
-            router('home');
-        }
-
         // --- 各ページのレンダリング関数 ---
 
         function renderHome() {
             const t = translations[currentLang] || translations['ja'];
+            const nextSundayDate = getNextThirdSunday();
+            const dateStr = currentLang === 'ja' ? formatDateJa(nextSundayDate) : formatDateEn(nextSundayDate);
+
             return `
                 <!-- ヒーローセクション -->
                 <section class="hero-pattern py-12 md:py-20 border-b border-orange-100">
@@ -304,7 +494,7 @@
                             ${t.heroDesc}
                         </p>
                         
-                        <!-- 次回開催カード（最重要導線） -->
+                        <!-- 次回開催カード（自動更新） -->
                         <div class="max-w-xl mx-auto bg-white rounded-2xl shadow-xl p-6 border-2 border-pawafuru-yellow text-left mb-10">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="bg-red-100 text-red-600 text-xs font-bold px-3 py-1 rounded-full animate-pulse">
@@ -315,28 +505,29 @@
                                 </span>
                             </div>
                             <h3 class="text-lg sm:text-xl font-bold text-pawafuru-darkText mb-2">
-                                6月21日（日）9:00 ～ 12:00
+                                ${dateStr}
                             </h3>
                             <p class="text-xs sm:text-sm text-gray-600 mb-4 flex items-center">
                                 <i class="fa-solid fa-location-dot text-pawafuru-orange mr-2"></i> ${t.openPlace}
                             </p>
                             <div class="grid grid-cols-2 gap-3">
                                 <button onclick="router('guide')" class="bg-pawafuru-orange hover:bg-orange-600 text-white font-bold py-2.5 px-4 rounded-xl text-center text-sm transition shadow">
-                                    はじめての方へ 🚀
+                                    ${t.btnGuide}
                                 </button>
                                 <button onclick="router('support')" class="bg-white border-2 border-pawafuru-orange text-pawafuru-orange hover:bg-orange-50 font-bold py-2.5 px-4 rounded-xl text-center text-sm transition">
-                                    困ったときの相談 💬
+                                    ${t.btnSupport}
                                 </button>
                             </div>
                         </div>
 
-                        <!-- お知らせバー -->
+                        <!-- お知らせバー（管理ページからテーマ・画像対応） -->
                         <div class="max-w-3xl mx-auto bg-white rounded-xl p-4 shadow-sm border border-gray-200 text-left">
                             <div class="flex items-center mb-2">
-                                <span class="text-xs font-bold bg-pawafuru-yellow text-gray-800 px-2 py-0.5 rounded mr-2">お知らせ</span>
+                                <span class="text-xs font-bold bg-pawafuru-yellow text-gray-800 px-2.5 py-0.5 rounded mr-2">${db.notices[0]?.theme || 'お知らせ'}</span>
                                 <span class="text-xs text-gray-500">${db.notices[0]?.date || ''}</span>
                             </div>
-                            <p class="text-sm font-medium text-gray-800">${db.notices[0]?.title || ''}</p>
+                            <p class="text-sm font-medium text-gray-800 mb-2">${db.notices[0]?.title || ''}</p>
+                            ${db.notices[0]?.image ? `<div class="mt-3"><img src="${db.notices[0].image}" alt="お知らせ画像" class="max-h-48 rounded-lg object-cover shadow-sm"></div>` : ''}
                         </div>
                     </div>
                 </section>
@@ -353,82 +544,33 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <!-- あそぶ -->
                         <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-orange-400 group">
                             <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-500 text-2xl mb-4 group-hover:scale-110 transition">
                                 <i class="fa-solid fa-gamepad"></i>
                             </div>
                             <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">① あそぶ</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">
-                                ゲーム、読書、漫画、ボードゲーム、おしゃべり。自分の好きなことでリラックス。
+                            <p class="text-xs text-gray-600 leading-relaxed">ゲーム、読書、漫画、ボードゲーム、おしゃべり。自分の好きなことでリラックス。</p>
                         </div>
-
-                        <!-- まなぶ -->
                         <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-yellow-400 group">
                             <div class="w-14 h-14 bg-yellow-100 rounded-2xl flex items-center justify-center text-yellow-600 text-2xl mb-4 group-hover:scale-110 transition">
                                 <i class="fa-solid fa-book-open"></i>
                             </div>
                             <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">② まなぶ</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">
-                                学校の宿題、自習、読書、調べもの。わからないところはスタッフと一緒に考えよう。
-                            </p>
+                            <p class="text-xs text-gray-600 leading-relaxed">学校の宿題、自習、読書、調べもの。わからないところはスタッフと一緒に考えよう。</p>
                         </div>
-
-                        <!-- つながる -->
                         <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-green-400 group">
                             <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 text-2xl mb-4 group-hover:scale-110 transition">
                                 <i class="fa-solid fa-people-group"></i>
                             </div>
                             <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">③ つながる</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">
-                                こども同士、若者、地域のみなさん、大人たちとの温かい交流。安心できる仲間が見つかる。
-                            </p>
+                            <p class="text-xs text-gray-600 leading-relaxed">こども同士、若者、地域のみなさん、大人たちとの温かい交流。安心できる仲間が見つかる。</p>
                         </div>
-
-                        <!-- つくる -->
                         <div onclick="router('activities')" class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition cursor-pointer border-b-4 border-blue-400 group">
                             <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 text-2xl mb-4 group-hover:scale-110 transition">
                                 <i class="fa-solid fa-wand-magic-sparkles"></i>
                             </div>
                             <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">④ つくる</h3>
-                            <p class="text-xs text-gray-600 leading-relaxed">
-                                工作、イベントの企画、やってみたいことへの挑戦。「こんなことしたい」をカタチに。
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- 相談バナー -->
-                    <div class="mt-12 bg-gradient-to-r from-orange-500 to-amber-500 rounded-3xl p-8 text-white shadow-lg flex flex-col md:flex-row items-center justify-between">
-                        <div class="mb-6 md:mb-0">
-                            <span class="bg-white text-orange-600 text-xs font-bold px-3 py-1 rounded-full">
-                                💬 どんな小さなことでも
-                            </span>
-                            <h3 class="text-2xl font-bold mt-2">困ったとき、ちょっと話したいときに</h3>
-                            <p class="text-xs sm:text-sm text-orange-100 mt-1">
-                                「学校のこと」「友だちのこと」「将来のこと」「なんとなくつらい」…話を聴くスタッフが待っています。
-                            </p>
-                        </div>
-                        <button onclick="router('support')" class="bg-white text-orange-600 hover:bg-orange-50 font-bold px-6 py-3 rounded-full text-sm shadow transition shrink-0">
-                            相談のページを見る ➔
-                        </button>
-                    </div>
-                </section>
-
-                <!-- ストーリー・ぱわふるらしさ -->
-                <section class="bg-white py-16 border-t border-orange-100">
-                    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div class="bg-pawafuru-lightOrange rounded-3xl p-8 sm:p-12 border border-orange-200">
-                            <span class="text-xs font-bold text-orange-600 uppercase tracking-widest block mb-2">ぱわふるのエピソード</span>
-                            <h2 class="text-xl sm:text-2xl font-extrabold text-pawafuru-darkText mb-4">
-                                「今日、めっちゃ楽しいよ。毎日やってよ！」
-                            </h2>
-                            <p class="text-xs sm:text-sm text-gray-700 leading-relaxed mb-6">
-                                以前、イベントで小学生の子がかけてくれたこの言葉が、私たちの原動力です。
-                                ぱわふるは、「ここにいていい」と感じられる場所。年齢や立場に関係なく、老若男女問わず誰もが少し元気になれる、そんな場所を目指しています。
-                            </p>
-                            <button onclick="router('about')" class="text-xs font-bold text-orange-600 hover:underline flex items-center">
-                                ぱわふるの理念とストーリーをもっと知る <i class="fa-solid fa-arrow-right ml-1"></i>
-                            </button>
+                            <p class="text-xs text-gray-600 leading-relaxed">工作、イベントの企画、やってみたいことへの挑戦。「こんなことしたい」をカタチに。</p>
                         </div>
                     </div>
                 </section>
@@ -442,33 +584,12 @@
                         <a href="#" onclick="router('home')">HOME</a> &gt; ぱわふるって？
                     </nav>
                     <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">ぱわふるって？</h1>
-                    
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 space-y-8">
                         <div>
                             <h2 class="text-xl font-bold text-orange-600 mb-3">🌟 基本理念：「ここにいていい。やってみたいを、やってみよう。」</h2>
                             <p class="text-sm text-gray-700 leading-relaxed">
                                 ぱわふるは、「居たい・行きたいと思える場所を、地域の中に。」という思いから、2023年8月に高校生を中心として始まった任意団体です。
                                 学校でも家庭でもない、もうひとつの安心できる場所＝「あなたの第2のおうち」を目指しています。
-                            </p>
-                        </div>
-
-                        <div>
-                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">💡 ぱわふるが絶対に大切にすること</h3>
-                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
-                                <li>こども・若者の意見を受け止め、大切にすること</li>
-                                <li>秘密を大切に扱うこと</li>
-                                <li>ありのままのあなたを大切にすること</li>
-                                <li>自分の好きなように過ごしていい場所であること</li>
-                                <li>大人が一方的に「こどものため」を決めないこと</li>
-                                <li>こども・若者を「支援されるだけの存在」として扱わないこと</li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">🛡️ スタッフのあり方</h3>
-                            <p class="text-sm text-gray-700 leading-relaxed mb-3">
-                                スタッフは「指導者」ではありません。一緒に遊び、話を聴き、学習や挑戦を支える<strong>「伴走者」</strong>です。
-                                否定しない、急かしない、無理に決めさせない、約束を守る姿勢を大切にしています。
                             </p>
                         </div>
                     </div>
@@ -483,26 +604,10 @@
                         <a href="#" onclick="router('home')">HOME</a> &gt; できること
                     </nav>
                     <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">できること（活動の4本柱）</h1>
-                    <p class="text-sm text-gray-600 mb-8">
-                        ぱわふるには「これをしなきゃいけない」という決まりはありません。その日の自分に合わせて自由に過ごせます。
-                    </p>
-
                     <div class="space-y-6">
                         <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-orange-400">
                             <h3 class="text-lg font-bold text-orange-600 mb-2">🎮 ① あそぶ</h3>
                             <p class="text-sm text-gray-700">ゲーム、読書、漫画、ボードゲーム、おしゃべりなど。思いっきり楽しむ時間も、のんびりする時間も大切です。</p>
-                        </div>
-                        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-yellow-400">
-                            <h3 class="text-lg font-bold text-yellow-600 mb-2">📚 ② まなぶ</h3>
-                            <p class="text-sm text-gray-700">学校の宿題、自習、調べもの、読書など。わからないところはスタッフと一緒に考えます。</p>
-                        </div>
-                        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-green-400">
-                            <h3 class="text-lg font-bold text-green-600 mb-2">🤝 ③ つながる</h3>
-                            <p class="text-sm text-gray-700">こども同士、若者、地域住民、大人たちとの温かい交流。一人でも、誰かと一緒でも大丈夫。</p>
-                        </div>
-                        <div class="bg-white rounded-2xl p-6 shadow-sm border-l-8 border-blue-400">
-                            <h3 class="text-lg font-bold text-blue-600 mb-2">🛠️ ④ つくる</h3>
-                            <p class="text-sm text-gray-700">工作、イベントの企画、地域での挑戦。「こんなことやってみたい！」の気持ちをカタチにします。</p>
                         </div>
                     </div>
                 </div>
@@ -510,29 +615,23 @@
         }
 
         function renderEvents() {
+            const nextSundayDate = getNextThirdSunday();
+            const dateStr = formatDateJa(nextSundayDate);
             return `
                 <div class="max-w-4xl mx-auto px-4 py-12">
                     <nav class="text-xs text-gray-500 mb-6">
                         <a href="#" onclick="router('home')">HOME</a> &gt; イベント
                     </nav>
-                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">イベント情報</h1>
-                    <p class="text-sm text-gray-600 mb-8">
-                        毎月の定期オープンのほか、楽しいイベントを開催しています。予約不要でお気軽にお越しください！
-                    </p>
-
-                    <div class="space-y-6">
-                        ${db.events.map(ev => `
-                            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">${ev.res}</span>
-                                    <span class="text-xs font-bold text-green-600">${ev.fee}</span>
-                                </div>
-                                <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">${ev.title}</h3>
-                                <p class="text-xs text-gray-600 mb-1"><i class="fa-solid fa-calendar mr-2 text-pawafuru-orange"></i>${ev.date}</p>
-                                <p class="text-xs text-gray-600 mb-3"><i class="fa-solid fa-location-dot mr-2 text-pawafuru-orange"></i>${ev.place}</p>
-                                <p class="text-xs text-gray-700 bg-gray-50 p-3 rounded-xl">${ev.desc}</p>
-                            </div>
-                        `).join('')}
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">イベント・次回開催情報</h1>
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border-2 border-pawafuru-yellow mb-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="bg-orange-100 text-orange-600 text-xs font-bold px-3 py-1 rounded-full">予約不要</span>
+                            <span class="text-xs font-bold text-green-600">参加費無料</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">第3日曜日 定期オープンDAY (${dateStr})</h3>
+                        <p class="text-xs text-gray-600 mb-1"><i class="fa-solid fa-calendar mr-2 text-pawafuru-orange"></i>毎月第3日曜日 9:00～12:00 (自動更新)</p>
+                        <p class="text-xs text-gray-600 mb-3"><i class="fa-solid fa-location-dot mr-2 text-pawafuru-orange"></i>六ツ美南部学区市民ホーム</p>
+                        <p class="text-xs text-gray-700 bg-gray-50 p-3 rounded-xl">読書、ゲーム、漫画、学習、おしゃべり、のんびり過ごすなど自由な時間です。</p>
                     </div>
                 </div>
             `;
@@ -547,43 +646,6 @@
                     <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-4">困ったときの相談支援</h1>
                     <div class="bg-orange-50 border-l-4 border-pawafuru-orange p-4 rounded-r-xl mb-8">
                         <p class="text-sm font-bold text-orange-800">「ここにいていい。困ったときに話せる人がいる。」</p>
-                        <p class="text-xs text-gray-700 mt-1">こんなこと相談していいの？と思うような小さな困りごとも、いつでも話してください。</p>
-                    </div>
-
-                    <div class="space-y-8">
-                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">💬 どんなことが相談できる？</h3>
-                            <p class="text-xs text-gray-700 mb-3">学校、友人関係、家族関係、勉強、進路、将来、生活、不登校、子育て、なんとなくつらい、誰かに話を聞いてほしいなど、分野を限定しません。</p>
-                        </div>
-
-                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-3">⚠️ 相談対応者についてのたいせつなお知らせ</h3>
-                            <p class="text-xs text-gray-700 leading-relaxed">
-                                ぱわふるのスタッフは、医療・心理・福祉等の専門資格を有する専門職ではありません。
-                                私たちは「話を聴く」「困りごとを整理する」「一緒に考える」「必要な支援先につなぐ」ことを大切にしています。
-                                医療的な診断や専門的治療、行政の調査などは担いませんが、必要な場合は本人の意思を尊重した上で専門機関と連携します。
-                            </p>
-                        </div>
-
-                        <!-- 緊急時案内 -->
-                        <div class="bg-red-50 rounded-2xl p-6 border-2 border-red-300">
-                            <h3 class="text-lg font-bold text-red-700 mb-3"><i class="fa-solid fa-triangle-exclamation mr-2"></i>緊急時・夜間のご相談について</h3>
-                            <p class="text-xs text-gray-700 mb-4">生命・身体の安全に関わる緊急時は、ぱわふるの連絡先ではなく直ちに以下の専門機関へご連絡ください。</p>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
-                                <a href="tel:110" class="bg-white p-3 rounded-xl shadow-sm border border-red-200 block">
-                                    <span class="block text-lg font-bold text-red-600">110番</span>
-                                    <span class="text-xs text-gray-600">警察（事件・事故）</span>
-                                </a>
-                                <a href="tel:119" class="bg-white p-3 rounded-xl shadow-sm border border-red-200 block">
-                                    <span class="block text-lg font-bold text-red-600">119番</span>
-                                    <span class="text-xs text-gray-600">救急・消防</span>
-                                </a>
-                                <a href="tel:189" class="bg-white p-3 rounded-xl shadow-sm border border-red-200 block">
-                                    <span class="block text-lg font-bold text-red-600">189番</span>
-                                    <span class="text-xs text-gray-600">児童相談所虐待対応ダイヤル</span>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             `;
@@ -596,36 +658,13 @@
                         <a href="#" onclick="router('home')">HOME</a> &gt; はじめての方へ
                     </nav>
                     <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">はじめての方へ</h1>
-
-                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 space-y-6">
-                        <div>
-                            <h3 class="text-lg font-bold text-orange-600 mb-2">📌 基本情報</h3>
-                            <ul class="text-sm text-gray-700 space-y-2">
-                                <li><strong>開催日時：</strong>毎月第3日曜日 9:00～12:00</li>
-                                <li><strong>場所：</strong>六ツ美南部学区市民ホーム</li>
-                                <li><strong>利用料：</strong>無料</li>
-                                <li><strong>予約・定員：</strong>予約不要 / 定員なし</li>
-                                <li><strong>持ち物：</strong>飲み物、その他自分が持っていきたいもの</li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h3 class="text-lg font-bold text-pawafuru-darkText mb-2">❓ よくある質問（FAQ）</h3>
-                            <div class="space-y-4 text-sm text-gray-700">
-                                <div class="bg-gray-50 p-4 rounded-xl">
-                                    <p class="font-bold text-orange-600 mb-1">Q. 誰でも行けますか？</p>
-                                    <p class="text-xs">A. はい！こども、若者、大人、シニア、保護者など、すべての年代の方にご利用いただけます。</p>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-xl">
-                                    <p class="font-bold text-orange-600 mb-1">Q. 一人でも大丈夫ですか？</p>
-                                    <p class="text-xs">A. もちろんです。一人でも、友だちや家族と一緒でも大歓迎です。</p>
-                                </div>
-                                <div class="bg-gray-50 p-4 rounded-xl">
-                                    <p class="font-bold text-orange-600 mb-1">Q. 途中参加や途中退出はできますか？</p>
-                                    <p class="text-xs">A. はい、自分のペースで自由に来て帰ることができます。</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
+                        <h3 class="text-lg font-bold text-orange-600 mb-2">📌 基本情報</h3>
+                        <ul class="text-sm text-gray-700 space-y-2">
+                            <li><strong>開催日時：</strong>毎月第3日曜日 9:00～12:00 (システム自動計算)</li>
+                            <li><strong>場所：</strong>六ツ美南部学区市民ホーム</li>
+                            <li><strong>利用料：</strong>無料（予約不要）</li>
+                        </ul>
                     </div>
                 </div>
             `;
@@ -638,27 +677,6 @@
                         <a href="#" onclick="router('home')">HOME</a> &gt; 地域の情報
                     </nav>
                     <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">地域の情報ポータル</h1>
-                    <p class="text-sm text-gray-600 mb-8">
-                        岡崎市内のこどもの居場所や相談先、関連する支援情報をまとめた入口です。（将来的にさらに充実予定）
-                    </p>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-                            <h3 class="text-base font-bold text-pawafuru-darkText mb-2">🏛️ 岡崎市の関係機関</h3>
-                            <ul class="text-xs text-gray-600 space-y-2">
-                                <li>・岡崎市役所 福祉部 ふくし相談課</li>
-                                <li>・岡崎市 こども部 こども家庭センター</li>
-                                <li>・岡崎市 こども若者総合相談センター「わかサポ」</li>
-                            </ul>
-                        </div>
-                        <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-200">
-                            <h3 class="text-base font-bold text-pawafuru-darkText mb-2">🤝 地域サポート</h3>
-                            <ul class="text-xs text-gray-600 space-y-2">
-                                <li>・民生委員・児童委員の皆様</li>
-                                <li>・愛知県 西三河福祉相談センター</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             `;
         }
@@ -669,31 +687,10 @@
                     <nav class="text-xs text-gray-500 mb-6">
                         <a href="#" onclick="router('home')">HOME</a> &gt; 参加する
                     </nav>
-                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">「やってみたい」投稿・参加する</h1>
-                    
+                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6">「やってみたい」投稿</h1>
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-8">
-                        <h3 class="text-lg font-bold text-orange-600 mb-2">✨ こんなこと、やってみたい！</h3>
-                        <p class="text-xs text-gray-600 mb-4">イベント、遊び、こんな場所がほしいなど、あなたのアイデアを教えてください！</p>
-                        
-                        <div class="space-y-4">
-                            <textarea id="wish-input" rows="4" placeholder="例：みんなでピザを作るイベントがしたい！" class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-orange-400 focus:outline-none"></textarea>
-                            <button onclick="submitWish()" class="bg-pawafuru-orange hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition">
-                                アイデアを投稿する 🚀
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- みんなのアイデア実現状況 -->
-                    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-                        <h3 class="text-lg font-bold text-pawafuru-darkText mb-4">📋 投稿されたアイデアと実現状況</h3>
-                        <div class="space-y-3" id="wish-list">
-                            ${db.wishes.map(w => `
-                                <div class="bg-gray-50 p-4 rounded-xl flex items-center justify-between">
-                                    <span class="text-xs text-gray-800">${w.text}</span>
-                                    <span class="text-xs font-bold text-orange-600 bg-orange-100 px-2.5 py-1 rounded">${w.status}</span>
-                                </div>
-                            `).join('')}
-                        </div>
+                        <textarea id="wish-input" rows="4" placeholder="例：みんなでピザを作るイベントがしたい！" class="w-full p-3 border border-gray-300 rounded-xl text-sm mb-4 focus:ring-2 focus:ring-orange-400 focus:outline-none"></textarea>
+                        <button onclick="submitWish()" class="bg-pawafuru-orange hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl text-sm transition">アイデアを投稿する 🚀</button>
                     </div>
                 </div>
             `;
@@ -701,46 +698,121 @@
 
         function submitWish() {
             const input = document.getElementById('wish-input');
-            if(!input.value.trim()) return alert('内容を入力してください。');
+            if(!input.value.trim()) {
+                showModal('エラー', '内容を入力してください。');
+                return;
+            }
             db.wishes.unshift({ id: Date.now(), text: input.value, status: 'みんなで考え中！' });
             saveDB();
-            alert('ご意見ありがとうございます！大切に受け止めます。');
+            showModal('投稿完了', 'ご意見ありがとうございます！大切に受け止めます。');
             router('join');
         }
 
-        // 管理画面（簡易CMS）
-        function renderAdmin() {
+        // --- パスワード保護付き管理ダッシュボード ---
+        let isAdminLoggedIn = false;
+
+        function renderAdminLoginCheck(container) {
+            if (!isAdminLoggedIn) {
+                container.innerHTML = `
+                    <div class="max-w-md mx-auto px-4 py-20">
+                        <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 text-center">
+                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-500 text-xl mx-auto mb-4">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <h2 class="text-xl font-bold text-pawafuru-darkText mb-2">管理者ログイン</h2>
+                            <p class="text-xs text-gray-600 mb-6">管理ページにアクセスするにはパスワードを入力してください。<br>(初期パスワード: <span class="font-mono text-orange-600 font-bold">pawafuru2026</span>)</p>
+                            <input type="password" id="admin-pass-input" placeholder="パスワードを入力" class="w-full p-3 border border-gray-300 rounded-xl text-sm mb-4 focus:ring-2 focus:ring-orange-400 focus:outline-none">
+                            <button onclick="checkAdminPassword()" class="w-full bg-pawafuru-orange hover:bg-orange-600 text-white font-bold py-3 rounded-xl text-sm transition shadow">ログイン</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = renderAdminDashboard();
+            }
+        }
+
+        function checkAdminPassword() {
+            const val = document.getElementById('admin-pass-input').value;
+            if (val === 'pawafuru2026') {
+                isAdminLoggedIn = true;
+                router('admin');
+            } else {
+                showModal('認証失敗', 'パスワードが正しくありません。');
+            }
+        }
+
+        function renderAdminDashboard() {
             return `
                 <div class="max-w-4xl mx-auto px-4 py-12">
                     <nav class="text-xs text-gray-500 mb-6">
                         <a href="#" onclick="router('home')">HOME</a> &gt; 管理画面
                     </nav>
-                    <h1 class="text-3xl font-extrabold text-pawafuru-darkText mb-6"><i class="fa-solid fa-lock mr-2"></i>管理者ダッシュボード</h1>
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 class="text-3xl font-extrabold text-pawafuru-darkText"><i class="fa-solid fa-lock-open mr-2 text-green-500"></i>管理者ダッシュボード</h1>
+                        <button onclick="isAdminLoggedIn=false; router('home');" class="bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs px-4 py-2 rounded-xl font-bold transition">ログアウト</button>
+                    </div>
                     
                     <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 space-y-6">
-                        <p class="text-xs text-gray-600">サイト内の情報を簡単に更新できます。（デモモード：変更はブラウザに保存されます）</p>
+                        <p class="text-xs text-gray-600">お知らせのテーマ、タイトル、および画像ファイルを添付・入力して公開できます。</p>
                         
                         <div>
-                            <h3 class="text-base font-bold text-pawafuru-darkText mb-2">📢 お知らせの追加</h3>
-                            <input type="text" id="admin-notice" placeholder="新しいお知らせタイトル" class="w-full p-3 border border-gray-300 rounded-xl text-sm mb-3">
-                            <button onclick="addNotice()" class="bg-pawafuru-orange text-white font-bold px-5 py-2 rounded-xl text-xs">お知らせを追加</button>
+                            <h3 class="text-base font-bold text-pawafuru-darkText mb-3">📢 新しいお知らせの投稿</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">お知らせテーマ（例：開催、お知らせ、重要など）</label>
+                                    <input type="text" id="admin-theme" placeholder="開催" class="w-full p-3 border border-gray-300 rounded-xl text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">お知らせ内容</label>
+                                    <textarea id="admin-notice-text" rows="3" placeholder="お知らせの詳細内容を入力..." class="w-full p-3 border border-gray-300 rounded-xl text-sm"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-700 mb-1">画像添付（画像URLまたはサンプル選択）</label>
+                                    <input type="text" id="admin-image" placeholder="https://placehold.co/600x400/FF8C42/ffffff?text=Event" class="w-full p-3 border border-gray-300 rounded-xl text-sm">
+                                </div>
+                                <button onclick="addNewNotice()" class="bg-pawafuru-orange hover:bg-orange-600 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition">お知らせを公開する 🚀</button>
+                            </div>
                         </div>
 
                         <div class="pt-6 border-t border-gray-200">
-                            <button onclick="router('home')" class="bg-gray-200 text-gray-700 font-bold px-5 py-2 rounded-xl text-xs">ホームページに戻る</button>
+                            <h3 class="text-base font-bold text-pawafuru-darkText mb-3">📋 現在公開中のお知らせ一覧</h3>
+                            <div class="space-y-2">
+                                ${db.notices.map((n, idx) => `
+                                    <div class="bg-gray-50 p-4 rounded-xl flex items-center justify-between text-xs">
+                                        <div>
+                                            <span class="bg-pawafuru-yellow font-bold px-2 py-0.5 rounded mr-2">${n.theme}</span>
+                                            <span class="font-bold text-gray-800">${n.title}</span>
+                                        </div>
+                                        <button onclick="deleteNotice(${idx})" class="text-red-500 hover:text-red-700 font-bold"><i class="fa-solid fa-trash"></i> 削除</button>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     </div>
                 </div>
             `;
         }
 
-        function addNotice() {
-            const val = document.getElementById('admin-notice').value;
-            if(!val) return;
-            db.notices.unshift({ id: Date.now(), date: '2026.06.12', title: val, category: 'お知らせ' });
+        function addNewNotice() {
+            const theme = document.getElementById('admin-theme').value || 'お知らせ';
+            const title = document.getElementById('admin-notice-text').value;
+            const image = document.getElementById('admin-image').value;
+            if(!title) {
+                showModal('エラー', 'お知らせ内容を入力してください。');
+                return;
+            }
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+            db.notices.unshift({ id: Date.now(), date: dateStr, theme: theme, title: title, image: image });
             saveDB();
-            alert('お知らせを追加しました！');
+            showModal('成功', '新しいお知らせを公開しました！');
             router('home');
+        }
+
+        function deleteNotice(idx) {
+            db.notices.splice(idx, 1);
+            saveDB();
+            router('admin');
         }
 
         // 初期ロード
